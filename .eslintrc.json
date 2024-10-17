@@ -1,3 +1,44 @@
 {
-  "extends": ["next/core-web-vitals", "next/typescript"]
+  "extends": [
+    "next/core-web-vitals", 
+    "next/typescript",
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:prettier/recommended"
+  ],
+  "plugins": ["@typescript-eslint", "prettier"],
+  "rules": {
+    // Best practices for TypeScript
+    "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/no-explicit-any": "warn",
+
+    // Prettier integration
+    "prettier/prettier": ["error", { "singleQuote": true, "semi": false }],
+
+    // Next.js specific rules
+    "@next/next/no-img-element": "off",  // Allow <img> tag usage in Next.js (useful if <Image> component isn't required)
+    "react/react-in-jsx-scope": "off",  // React is not required in scope in Next.js with JSX
+    "react/jsx-uses-react": "off",      // No need for React in JSX scope due to new JSX transform
+
+    // Code consistency and best practices
+    "eqeqeq": ["error", "always"],         // Enforce strict equality (===) instead of loose equality (==)
+    "no-console": ["warn", { "allow": ["warn", "error"] }], // Warn on console.log but allow console.warn/error
+    "no-debugger": "error",                // Disallow debugger statements
+    "no-duplicate-imports": "error",       // Prevent importing the same module multiple times
+    "curly": "error",                      // Always use curly braces in blocks for consistency
+    "arrow-body-style": ["error", "as-needed"], // Encourage concise arrow function syntax
+    "prefer-const": "error",               // Enforce the use of `const` if variables are not reassigned
+    "no-var": "error",                     // Disallow `var`, prefer `let` and `const`
+    "spaced-comment": ["error", "always"], // Require space after comments (for readability)
+    "no-multiple-empty-lines": ["warn", { "max": 1 }], // Prevent multiple empty lines to improve readability
+    "quotes": ["error", "single"],         // Enforce the use of single quotes for strings
+    "semi": ["error", "never"],            // Disallow semicolons (depends on your Prettier config)
+    "jsx-quotes": ["error", "prefer-double"] // Enforce double quotes in JSX attributes
+  },
+  "env": {
+    "browser": true,
+    "node": true,
+    "es2021": true
+  }
 }
