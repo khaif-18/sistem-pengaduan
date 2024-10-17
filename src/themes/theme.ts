@@ -1,8 +1,8 @@
-import { extendTheme } from "@chakra-ui/react";
+import { extendTheme } from '@chakra-ui/react'
 
 const formFieldBaseStyle = {
   bg: 'primary.soft',
-};
+}
 
 const formFieldVariants = {
   outline: {
@@ -15,12 +15,12 @@ const formFieldVariants = {
       },
     },
   },
-};
+}
 
 const theme = extendTheme({
   fonts: {
-    body: "system-ui, sans-serif",
-    heading: "Georgia, serif",
+    body: 'system-ui, sans-serif',
+    heading: 'Georgia, serif',
   },
   colors: {
     primary: {
@@ -52,6 +52,6 @@ const theme = extendTheme({
       },
     },
   },
-});
+})
 
-export default theme;
+export default theme
