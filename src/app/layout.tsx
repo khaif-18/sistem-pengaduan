@@ -15,7 +15,7 @@ const geistMono = localFont({
 
 export const metadata: Metadata = {
   title: "Pengaduan - Lorem Ipsum",
-  description: "Pelaporan pengaduan kepada Dinas Perhubungan Kabupaten Situbondo",
+  description: "Pelaporan Lorem Ipsum",
 };
 
 export default function RootLayout({
