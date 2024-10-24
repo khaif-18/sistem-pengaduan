@@ -1,8 +1,9 @@
 import { IPengaduan } from '@/app/server/interface/pengaduan'
 import { useFormik } from 'formik'
-import { ChangeEvent } from 'react'
+import { ChangeEvent, useState } from 'react'
 
 export const useForm = () => {
+  const [imagePreview, setImagePreview] = useState<string | null>(null)
   const formik = useFormik<IPengaduan>({
     initialValues: {
       jenis_pengaduan: 'Kritik & Saran',
@@ -40,8 +41,27 @@ export const useForm = () => {
     }
   }
 
+  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0]
+    if (file) {
+      const reader = new FileReader()
+      reader.onloadend = () => {
+        setImagePreview(reader.result as string)
+      }
+      reader.readAsDataURL(file)
+      handleFileChange(event)
+    }
+  }
+
+  const removeImage = () => {
+    setImagePreview(null)
+    formik.setFieldValue('evidence', null)
+  }
+
   return {
     formik,
-    handleFileChange,
+    imagePreview,
+    handleImageChange,
+    removeImage,
   }
 }
