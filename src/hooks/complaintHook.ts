@@ -1,4 +1,5 @@
 import { useFormik } from "formik"
+import { useState } from "react"
 
 interface ComplaintData {
   jenisPengaduan: string
@@ -10,6 +11,7 @@ interface ComplaintData {
 }
 
 export const useComplaintForm = () => {
+  const [submitStatus, setSubmitStatus] = useState<"success" | "error" | null>(null) // New state for submit status
   const formik = useFormik<ComplaintData>({
     initialValues: {
       jenisPengaduan: 'Kritik & Saran',
@@ -19,19 +21,31 @@ export const useComplaintForm = () => {
       evidence: '',
       deskripsi: '',
     },
-    onSubmit: (values) => {
-      fetch('/api/complaint/post', {
-        method: 'POST',
-        body: JSON.stringify(values),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      })
-        .then((response) => response.json())
-        .catch((error) => {
-          console.error('Error submitting form:', error)
+    onSubmit: async (values) => {
+      try {
+        const response = await fetch('/api/complaint/post', {
+          method: 'POST',
+          body: JSON.stringify(values),
+          headers: {
+            'Content-Type': 'application/json',
+          },
         })
+
+        if (response.ok) {
+          setSubmitStatus("success")
+        } else {
+          setSubmitStatus("error")
+          console.error('Error submitting form:', await response.text())
+        }
+      } catch (error) {
+        setSubmitStatus("error")
+        console.error('Error submitting form:', error)
+      }
     },
   })
-  return formik
+  return {
+    formik,
+    submitStatus,
+    setSubmitStatus
+  }
 }
