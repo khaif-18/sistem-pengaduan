@@ -1,6 +1,6 @@
 "use client"
 
-import { Box, Button, Input, Stack, Textarea, createListCollection } from "@chakra-ui/react"
+import { AlertDescription, AlertTitle, Box, Button, Input, Stack, Textarea, createListCollection } from "@chakra-ui/react"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Field } from "@/components/ui/field"
 import {
@@ -14,6 +14,8 @@ import { Controller, useForm } from "react-hook-form"
 import { z } from "zod"
 import { NumberInputField, NumberInputRoot } from "@/components/ui/number-input"
 import { useComplaintForm } from "@/hooks/complaintHook"
+import { useEffect } from "react"
+import { Alert } from "@/components/ui/alert"
 
 const formSchema = z.object({
   jenisPengaduan: z.string({ message: "Jenis Pengaduan harus diisi" }).array(),
@@ -39,7 +41,7 @@ export default function Homes() {
     resolver: zodResolver(formSchema),
   })
 
-  const formik = useComplaintForm()
+  const { formik, submitStatus, setSubmitStatus } = useComplaintForm()
 
   const onSubmit = handleSubmit((data) => {
     formik.setFieldValue("jenisPengaduan", data.jenisPengaduan[0])
@@ -50,6 +52,13 @@ export default function Homes() {
     formik.handleSubmit()
     // formik.handleSubmit
   })
+
+  useEffect(() => {
+    if (submitStatus) {
+      const timer = setTimeout(() => setSubmitStatus(null), 5000)
+      return () => clearTimeout(timer)
+    }
+  }, [submitStatus, setSubmitStatus])
 
   return (
     <Box maxW="600px" mx="auto" mt={10} mb={10} px={4}>
@@ -162,6 +171,18 @@ export default function Homes() {
           </Button>
         </Stack>
       </form>
+      {submitStatus && (
+        <Alert status={submitStatus} mt={4}>
+          <AlertTitle>
+            {submitStatus === "success" ? "Berhasil Mengirim!" : "Gagal Mengirim!"}
+          </AlertTitle>
+          <AlertDescription>
+            {submitStatus === "success"
+              ? "Pengaduan Anda telah berhasil dikirim."
+              : "Terjadi kesalahan saat mengirim. Silakan coba lagi."}
+          </AlertDescription>
+        </Alert>
+      )}
     </Box>
   )
 }
