@@ -12,14 +12,13 @@ import {
 import { Button } from './ui/button'
 import Image from 'next/image'
 import { ColorModeToggle } from './color-mode-toggle'
-import logo from '../public/static/logo-dishub.png'
 
 export const Navbar = () => (
   <Box bg={"blue.500"} py={4}>
     <Flex justify="space-between" align="center" maxW="1200px" mx="auto">
       <Flex align="center">
         <Image
-          src={logo}
+          src='/static/logo-dishub.png'
           alt="Logo"
           width={100}
           height={100}
@@ -45,7 +44,7 @@ export const Navbar = () => (
             </DrawerHeader>
             <DrawerBody pb={8}>
               <VStack align="start">
-                <Link href="#">
+                <Link href="/kir">
                   KIR
                 </Link>
                 <Link href="#">

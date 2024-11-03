@@ -1,5 +1,5 @@
 import connectDB from '@/server/connection'
-import pengaduan from '@/server/models/pengaduan'
+import pengaduan from '@/server/models/form'
 import { NextResponse } from 'next/server'
 
 export async function POST(req: Request) {
