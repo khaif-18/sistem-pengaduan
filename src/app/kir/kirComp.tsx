@@ -1,10 +1,11 @@
 
 "use client";
 
-import { Document, Page } from 'react-pdf';
+import { Document, Page, pdfjs } from 'react-pdf';
 import { useEffect, useState } from "react";
 import { Box, Text } from "@chakra-ui/react";
 import { useKirHook } from "@/hooks/kirHook";
+
 
 export default function KirComp() {
   const { item } = useKirHook();
@@ -13,6 +14,7 @@ export default function KirComp() {
 
   useEffect(() => {
     const timer = setTimeout(() => setIsLoading(false), 3000);
+    pdfjs.GlobalWorkerOptions.workerSrc = `/pdf.worker.min.mjs`;
     return () => clearTimeout(timer);
   }, []);
 
