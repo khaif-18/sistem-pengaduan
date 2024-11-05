@@ -1,19 +1,19 @@
 "use server";
 import connectDB from "@/server/connection";
-import pengaduan from "@/server/models/form";
+import dukunganPenegakHukum from "@/server/models/dukungan";
 import { NextResponse } from "next/server";
 
 export async function GET() {
   try {
     await connectDB();
 
-    const dataPengaduan = await pengaduan.find({}).sort({ _id: -1 }).exec();
+    const dataDukungan = await dukunganPenegakHukum.find({}).sort({ _id: -1 }).limit(1).exec();
 
-    const responseData = dataPengaduan.map((record) => {
+    const responseData = dataDukungan.map((record) => {
       return {
         ...record.toObject(),
-        evidence: record.evidence
-          ? `data:image/jpeg;base64,${record.evidence.toString("base64")}`
+        pdfInfo: record.pdfInfo
+          ? `data:application/pdf;base64,${record.pdfInfo.toString("base64")}`
           : null,
       };
     });
