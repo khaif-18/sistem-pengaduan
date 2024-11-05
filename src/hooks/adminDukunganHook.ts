@@ -1,19 +1,19 @@
 import { useFormik } from "formik"
 import { useState } from "react"
 
-interface KirData {
+interface PengaduanData {
   pdfInfo: string
 }
 
-export const useAdminKirHook = () => {
+export const useAdminDukunganHook = () => {
   const [submitStatus, setSubmitStatus] = useState<"success" | "error" | null>(null) // New state for submit status
-  const formik = useFormik<KirData>({
+  const formik = useFormik<PengaduanData>({
     initialValues: {
       pdfInfo: '',
     },
     onSubmit: async (values) => {
       try {
-        const response = await fetch('/api/kir/post', {
+        const response = await fetch('/api/dukungan_penegak_hukum/post', {
           method: 'POST',
           body: JSON.stringify(values),
           headers: {

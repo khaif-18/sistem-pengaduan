@@ -1,15 +1,15 @@
 "use server";
 import connectDB from "@/server/connection";
-import pengaduanKir from "@/server/models/kir";
+import dukunganPenegakHukum from "@/server/models/dukungan";
 import { NextResponse } from "next/server";
 
 export async function GET() {
   try {
     await connectDB();
 
-    const dataKir = await pengaduanKir.find({}).sort({ _id: -1 }).limit(1).exec();
+    const dataDukungan = await dukunganPenegakHukum.find({}).sort({ _id: -1 }).limit(1).exec();
 
-    const responseData = dataKir.map((record) => {
+    const responseData = dataDukungan.map((record) => {
       return {
         ...record.toObject(),
         pdfInfo: record.pdfInfo

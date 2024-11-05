@@ -4,11 +4,11 @@
 import { Document, Page, pdfjs } from 'react-pdf';
 import { useEffect, useState } from "react";
 import { Box, Text } from "@chakra-ui/react";
-import { useKirHook } from "@/hooks/kirHook";
+import { useDukunganHook } from "@/hooks/dukunganHook";
 
 
-export default function KirComp() {
-  const { item } = useKirHook();
+export default function dukunganComp() {
+  const { item } = useDukunganHook();
   const [isLoading, setIsLoading] = useState(true);
   const [numPages, setNumPages] = useState<number | null>(null);
 

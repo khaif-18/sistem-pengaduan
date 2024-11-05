@@ -1,5 +1,5 @@
 import connectDB from '@/server/connection'
-import pengaduanKir from '@/server/models/kir'
+import dukunganPenegakHukum from '@/server/models/dukungan'
 import { NextResponse } from 'next/server'
 
 export async function POST(req: Request) {
@@ -30,11 +30,11 @@ export async function POST(req: Request) {
     //     }
     //   }
     // }
-    const formKir = new pengaduanKir({  
+    const formDukungan = new dukunganPenegakHukum({  
       pdfInfo,
     })
 
-    await formKir.save()
+    await formDukungan.save()
     return NextResponse.json({ done: true })
   } catch (error: unknown) {
     console.error('Error:', error)

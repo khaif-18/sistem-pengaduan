@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Field } from "@/components/ui/field";
-import { useAdminKirHook } from "@/hooks/adminKirHook";
+import { useAdminDukunganHook } from "@/hooks/adminDukunganHook";
 import { Box, Input } from "@chakra-ui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -17,7 +17,7 @@ const formSchema = z.object({
 
 type FormValues = z.infer<typeof formSchema>;
 
-export default function AdminKir() {
+export default function AdminDukungan() {
   const {
     handleSubmit,
     setValue,
@@ -25,7 +25,7 @@ export default function AdminKir() {
   } = useForm<FormValues>({
     resolver: zodResolver(formSchema),
   });
-  const { formik } = useAdminKirHook();
+  const { formik } = useAdminDukunganHook();
   
   const [base64File, setBase64File] = useState<string | null>(null);
 
