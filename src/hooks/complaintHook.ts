@@ -28,6 +28,7 @@ export const useComplaintForm = () => {
           body: JSON.stringify(values),
           headers: {
             'Content-Type': 'application/json',
+            'Cache-Control': 'no-store'
           },
         })
 
