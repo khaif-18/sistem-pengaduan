@@ -7,7 +7,8 @@ export async function GET() {
     try {
         await connectDB();
 
-        const dataPengaduan = await pengaduan.find({}).sort({ _id: -1 }).exec();
+        const dataPengaduan = await pengaduan.find({})
+        // .sort({ _id: -1 }).exec();
 
         const responseData = dataPengaduan.map((record) => {
             return {
