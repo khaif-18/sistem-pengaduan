@@ -23,9 +23,9 @@ export async function GET() {
         return NextResponse.json(responseData, {
             status: 200,
             headers: {
-                "Cache-Control": "public, s-maxage=0",
-                "CDN-Cache-Control": "public, s-maxage=0",
-                "Vercel-CDN-Cache-Control": "public, s-maxage=0",
+                "Cache-Control": "no-cache, no-store, max-age=0, must-revalidate",
+                "CDN-Cache-Control": "no-cache, no-store, max-age=0, must-revalidate",
+                "Vercel-CDN-Cache-Control": "no-cache, no-store, max-age=0, must-revalidate",
             },
         });
     } catch (error: unknown) {
