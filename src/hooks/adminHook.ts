@@ -1,34 +1,43 @@
-import { useEffect, useState } from "react"
+import axios from "axios";
+import { useEffect, useState } from "react";
 
 interface PengaduanItem {
-  id: number
-  jenisPengaduan: string
-  tanggal: string
-  nama: string
-  noTelepon: string
-  deskripsi: string
-  evidence: string
+  id: number;
+  jenisPengaduan: string;
+  tanggal: string;
+  nama: string;
+  noTelepon: string;
+  deskripsi: string;
+  evidence: string;
 }
 
 export function useAdminPagination(pageSize: number) {
-  const [items, setItems] = useState<PengaduanItem[]>([])
-  const [page, setPage] = useState(1)
-  const [totalItems, setTotalItems] = useState(0)
+  const [items, setItems] = useState<PengaduanItem[]>([]);
+  const [page, setPage] = useState(1);
+  const [totalItems, setTotalItems] = useState(0);
 
   useEffect(() => {
     async function fetchPengaduan() {
-      const response = await fetch('/api/complaint/get')
-      const data = await response.json()
-      setItems(data)
-      setTotalItems(data.length)
+      try {
+        const response = await axios.get("/api/complaint/get", {
+          headers: {
+            "Cache-Control": "no-store",
+          },
+        });
+        const data = response.data;
+        setItems(data);
+        setTotalItems(data.length);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
     }
-    
-    fetchPengaduan()
-  }, [])
 
-  const startRange = (page - 1) * pageSize
-  const endRange = startRange + pageSize
-  const visibleItems = items.slice(startRange, endRange)
+    fetchPengaduan();
+  }, []);
 
-  return { visibleItems, page, setPage, totalItems }
+  const startRange = (page - 1) * pageSize;
+  const endRange = startRange + pageSize;
+  const visibleItems = items.slice(startRange, endRange);
+
+  return { visibleItems, page, setPage, totalItems };
 }

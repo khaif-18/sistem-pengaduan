@@ -1,7 +1,9 @@
-"use server";
+// "use server";
 import connectDB from "@/server/connection";
 import pengaduan from "@/server/models/form";
 import { NextResponse } from "next/server";
+
+export const dynamic = 'force-dynamic';
 
 export async function GET() {
   try {
@@ -18,7 +20,13 @@ export async function GET() {
       };
     });
 
-    return NextResponse.json(responseData);
+    return NextResponse.json(responseData, { 
+      status: 200,
+      headers: {
+        'Cache-Control': 'public, s-maxage=1',
+        'CDN-Cache-Control': 'public, s-maxage=60',
+        'Vercel-CDN-Cache-Control': 'public, s-maxage=3600',
+      },});
   } catch (error: unknown) {
     console.error("Error:", error);
 
