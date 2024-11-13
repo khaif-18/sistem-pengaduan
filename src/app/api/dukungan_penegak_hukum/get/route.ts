@@ -3,6 +3,8 @@ import connectDB from "@/server/connection";
 import dukunganPenegakHukum from "@/server/models/dukungan";
 import { NextResponse } from "next/server";
 
+export const dynamic = 'force-dynamic';
+
 export async function GET() {
   try {
     await connectDB();
