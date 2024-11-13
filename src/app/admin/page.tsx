@@ -17,7 +17,11 @@ export default function Admin() {
   // const startRange = (page - 1) * pageSize
   // const endRange = startRange + pageSize
   // const visibleItems = items.slice(startRange, endRange)
-  const { visibleItems, page, setPage, totalItems } = useAdminPagination(pageSize)
+  const { visibleItems, page, setPage, totalItems, loading } = useAdminPagination(pageSize)
+
+  if (loading) {
+    return <div>Loading data...</div>;
+  }
 
   return (
     <Box maxW="1200px" mx="auto" mt={10}>

@@ -15,9 +15,11 @@ export function useAdminPagination(pageSize: number) {
   const [items, setItems] = useState<PengaduanItem[]>([]);
   const [page, setPage] = useState(1);
   const [totalItems, setTotalItems] = useState(0);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function fetchPengaduan() {
+      setLoading(true);
       try {
         const response = await axios.get("/api/complaint/get", {
           headers: {
@@ -29,6 +31,8 @@ export function useAdminPagination(pageSize: number) {
         setTotalItems(data.length);
       } catch (error) {
         console.error("Error fetching data:", error);
+      } finally{
+        setLoading(false);
       }
     }
 
@@ -39,5 +43,5 @@ export function useAdminPagination(pageSize: number) {
   const endRange = startRange + pageSize;
   const visibleItems = items.slice(startRange, endRange);
 
-  return { visibleItems, page, setPage, totalItems };
+  return { visibleItems, page, setPage, totalItems, loading };
 }
