@@ -21,7 +21,11 @@ export function useAdminPagination(pageSize: number) {
         async function fetchPengaduan() {
             setLoading(true); // Mulai proses pemuatan
             try {
-                const response = await axios.get("/api/complaint/get");
+                const response = await axios.get("/api/complaint/get", {
+                    headers: {
+                        "Cache-Control": "no-store",
+                    },
+                });
                 const data = response.data;
 
                 if (Array.isArray(data)) {
@@ -35,7 +39,7 @@ export function useAdminPagination(pageSize: number) {
                 setItems([]);
                 setTotalItems(0);
             } finally {
-                setLoading(false); 
+                setLoading(false);
             }
         }
 
