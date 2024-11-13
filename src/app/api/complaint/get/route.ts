@@ -1,4 +1,4 @@
-"use server";
+// "use server";
 import connectDB from "@/server/connection";
 import pengaduan from "@/server/models/form";
 import { NextResponse } from "next/server";
