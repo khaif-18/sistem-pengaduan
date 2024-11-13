@@ -17,8 +17,7 @@ export const useAdminDukunganHook = () => {
           method: 'POST',
           body: JSON.stringify(values),
           headers: {
-            'Content-Type': 'application/json',
-            'Cache-Control': 'no-store'
+            'Content-Type': 'application/json'
           },
         })
 
