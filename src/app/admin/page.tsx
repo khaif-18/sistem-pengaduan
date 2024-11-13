@@ -20,11 +20,7 @@ export default function Admin() {
   const { visibleItems, page, setPage, totalItems, loading } = useAdminPagination(pageSize)
 
   if (loading) {
-<<<<<<< HEAD
     return <Box>Loading data...</Box>;
-=======
-    return <div>Loading data...</div>;
->>>>>>> dev
   }
 
   return (
