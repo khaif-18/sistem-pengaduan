@@ -98,15 +98,18 @@ export default function Homes() {
               )}
             />
           </Field>
-          <Field
+            <Field
             label="Tanggal"
             invalid={!!errors.tanggal}
             errorText={errors.tanggal?.message}
-          >
-            <Input type="date"
+            >
+            <Input
+              type="date"
+              defaultValue={new Date().toISOString().split("T")[0]}
+              max={new Date().toISOString().split("T")[0]}
               {...register("tanggal")}
             />
-          </Field>
+            </Field>
           <Field
             label="Nama Lengkap"
             invalid={!!errors.nama}
