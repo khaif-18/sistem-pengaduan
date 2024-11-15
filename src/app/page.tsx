@@ -22,10 +22,10 @@ const formSchema = z.object({
   jenisPengaduan: z.string({ message: "Jenis Pengaduan harus diisi" }).array(),
   tanggal: z.string().nonempty("Tanggal harus diisi"),
   nama: z.string().nonempty("Nama harus diisi"),
-  noTelepon: z.string().nonempty("Nomor Telepon harus diisi"),
+  noTelepon: z.string().nonempty("Nomor Telepon harus diisi").startsWith("8", "Nomor Telepon Harus dimulai Dengan 8").min(10, "Nomor Telepon Harus 10 Digit").max(12, "Nomor Telepon Harus 12 Digit"),
   deskripsi: z.string().nonempty("Deskripsi harus diisi"),
   // evidence: z.any()
-  evidence: z.instanceof(File)
+  evidence: z.instanceof(File, { message: "File harus berupa file yang valid" })
     .refine((file) => file.size < 2 * 1024 * 1024, 'File size must be less than 2MB')
 })
 
@@ -106,7 +106,7 @@ export default function Homes() {
             <Input
               type="date"
               defaultValue={new Date().toISOString().split("T")[0]}
-              max={new Date().toISOString().split("T")[0]}
+              min={new Date().toISOString().split("T")[0]}
               {...register("tanggal")}
             />
             </Field>
@@ -158,6 +158,7 @@ export default function Homes() {
           >
             <Input
               type="file"
+              accept="image/*"
               onChange={(event) => {
                 const file = (event.target as HTMLInputElement).files?.[0]
 
