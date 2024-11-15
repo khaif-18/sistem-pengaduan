@@ -1,6 +1,6 @@
 "use client"
 
-import { AlertDescription, AlertTitle, Box, Button, Input, Stack, Textarea, createListCollection } from "@chakra-ui/react"
+import { AlertDescription, AlertTitle, Box, Input, Stack, Textarea, createListCollection } from "@chakra-ui/react"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Field } from "@/components/ui/field"
 import {
@@ -14,8 +14,9 @@ import { Controller, useForm } from "react-hook-form"
 import { z } from "zod"
 import { NumberInputField, NumberInputRoot } from "@/components/ui/number-input"
 import { useComplaintForm } from "@/hooks/complaintHook"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { Alert } from "@/components/ui/alert"
+import { Button } from "@/components/ui/button"
 
 const formSchema = z.object({
   jenisPengaduan: z.string({ message: "Jenis Pengaduan harus diisi" }).array(),
@@ -42,6 +43,7 @@ export default function Homes() {
   })
 
   const { formik, submitStatus, setSubmitStatus } = useComplaintForm()
+  const [isLoading, setIsLoading] = useState(false)
 
   const onSubmit = handleSubmit((data) => {
     formik.setFieldValue("jenisPengaduan", data.jenisPengaduan[0])
@@ -49,6 +51,7 @@ export default function Homes() {
     formik.setFieldValue("nama", data.nama)
     formik.setFieldValue("noTelepon", data.noTelepon)
     formik.setFieldValue("deskripsi", data.deskripsi)
+    setIsLoading(true)
     formik.handleSubmit()
     // formik.handleSubmit
   })
@@ -56,6 +59,7 @@ export default function Homes() {
   useEffect(() => {
     if (submitStatus) {
       const timer = setTimeout(() => setSubmitStatus(null), 5000)
+      setIsLoading(false)
       return () => clearTimeout(timer)
     }
   }, [submitStatus, setSubmitStatus])
@@ -166,7 +170,7 @@ export default function Homes() {
               }}
             />
           </Field>
-          <Button size="sm" type="submit" bg={"blue.500"}>
+          <Button loading={isLoading} loadingText="Sending..." size="sm" type="submit" bg={"blue.500"}>
             Submit
           </Button>
         </Stack>
